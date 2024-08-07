@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace ListMaster.gismu.russianPassport.docStatus
+namespace ListMaster.gismu.russianPassport.actualDoc
 {
     class Operator : russianPassport.Operator
     {
@@ -30,8 +30,9 @@ namespace ListMaster.gismu.russianPassport.docStatus
                     try
                     {
                         GetSearchPage();
-                        var requredCondition = person.Documents.Count != 0 && !string.IsNullOrWhiteSpace(person.Documents[0].Series) && !string.IsNullOrWhiteSpace(person.Documents[0].Number);
-                        if (!requredCondition)
+                        var requredCondition = !string.IsNullOrWhiteSpace(person.Fullname) && person.Bdate != default;
+                        var alterRequredCondition = person.Documents.Count != 0 && !string.IsNullOrWhiteSpace(person.Documents[0].Series) && !string.IsNullOrWhiteSpace(person.Documents[0].Number);
+                        if (!requredCondition && !alterRequredCondition)
                         {
                             Report(Consts.MESSAGE_WRONG_FORMAT);
                             break;
@@ -43,11 +44,13 @@ namespace ListMaster.gismu.russianPassport.docStatus
                             browserProgress.Report(browser);
                             return;
                         }
+                        if (person.Documents.Count == 0)
+                            Report(person.Fullname);
+                        else
+                            Report(person.Documents.FirstOrDefault()?.SeriesNumber);
+                        var actualDocuments = GetActualDocuments(person);
 
-                        Report(person.Documents.FirstOrDefault()?.SeriesNumber);
-                        var docStatus = GetDocumentStatus(person);
-
-                        if (docStatus.Count == 0)
+                        if (actualDocuments.Count == 0)
                         {
                             WriteData($"{Consts.MESSAGE_NO_ENTRIES}");
                             break;
@@ -55,9 +58,9 @@ namespace ListMaster.gismu.russianPassport.docStatus
 
                         else
                         {
-                            for (int i = 0; i < docStatus.Count; i++)
+                            for (int i = 0; i < actualDocuments.Count; i++)
                             {
-                                var value = $"{docStatus[i]}";
+                                var value = $"{actualDocuments[i].Status};{actualDocuments[i].Series};{actualDocuments[i].Number};{actualDocuments[i].Date}";
                                 var targetColumn = 0;
                                 if (settings.TargetColumn != 0)
                                     targetColumn = settings.TargetColumn + i;
@@ -92,7 +95,7 @@ namespace ListMaster.gismu.russianPassport.docStatus
                             Report($"{ex.Message}. {Consts.MESSAGE_TRY_CONNECT} {exCounter}");
                             if (!ex.Message.Contains(Consts.ERORR_SCROLL_KEYWORD))
                             {
-                                Thread.Sleep(TimeSpan.FromSeconds(Consts.WAIT_60_SEC));
+                                Thread.Sleep(TimeSpan.FromSeconds(Consts.WAIT_60_SEC)); 
                             }
                             continue;
                         }
@@ -106,7 +109,7 @@ namespace ListMaster.gismu.russianPassport.docStatus
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 
-        private List<string> GetDocumentStatus(Dossier person)
+        private List<Document> GetActualDocuments(Dossier person)
         {
             var searchPage = new SearchPage(browser);
             searchPage.ClearForm();
@@ -114,9 +117,10 @@ namespace ListMaster.gismu.russianPassport.docStatus
             searchPage.ClickSearchButton();
             if (!searchPage.HaveResults())
             {
-                return new List<string>();
+                return new List<Document>();
             }
-            var result = searchPage.GetDocumentStatus();
+            var documents = searchPage.GetDocuments();
+            var result = documents.Where(doc => doc.Status == "Действительный").ToList();
             return result;
         }
     }

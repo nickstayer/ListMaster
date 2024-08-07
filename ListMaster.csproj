@@ -149,6 +149,7 @@
     <Compile Include="pages\gismu\ChangePasswordPage.cs" />
     <Compile Include="pages\gismu\LoginFormPage.cs" />
     <Compile Include="pages\gismu\GismuMenuPage.cs" />
+    <Compile Include="pages\gismu\russianPassport\infoAboutRP\actualDoc\Operator.cs" />
     <Compile Include="pages\gismu\russianPassport\infoAboutRP\docStatus\Operator.cs" />
     <Compile Include="pages\gismu\russianPassport\infoAboutRP\formOne\Operator.cs" />
     <Compile Include="pages\gismu\russianPassport\infoAboutRP\Operator.cs" />

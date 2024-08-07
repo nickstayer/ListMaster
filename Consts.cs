@@ -84,7 +84,8 @@ namespace ListMaster
         public const string SCRIPT_GISMU_ESFL_DOC = "ГИСМУ.ЕСФЛ.Документ";
         public const string SCRIPT_GISMU_ESFL_REG = "ГИСМУ.ЕСФЛ.Регистрация";
         public const string SCRIPT_GISMU_ESFL_NATION_BIRTHPLACE = "ГИСМУ.ЕСФЛ.Гражданство и место рождения";
-        public const string SCRIPT_GISMU_RP_DOC_STATUS = "ГИСМУ.РП.Актуальный документ";
+        public const string SCRIPT_GISMU_RP_DOC_STATUS = "ГИСМУ.РП.Статус документа";
+        public const string SCRIPT_GISMU_RP_ACTUAL_DOC = "ГИСМУ.РП.Актуальный документ";
         public const string SCRIPT_GISMU_RP_FORM_ONE = "ГИСМУ.РП.Форма 1";
 
         //АРХИВНЫЕ:

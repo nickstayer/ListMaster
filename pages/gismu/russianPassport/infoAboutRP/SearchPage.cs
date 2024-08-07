@@ -92,6 +92,21 @@ namespace ListMaster.gismu.russianPassport
             return result;
         }
 
+        public List<string> GetDocumentStatus()
+        {
+            var result = new List<string>();
+            IList<IWebElement> rows = GetResultRows();
+            foreach (IWebElement row in rows)
+            {
+                var columns = row.FindElements(_column);
+                if (columns.Count == 6)//магическое
+                {
+                    result.Add(columns[5].Text);
+                }
+            }
+            return result;
+        }
+
         public PassportPage ViewPassport(IWebElement resultRow)
         {
             Actions action = new Actions(_browser.Driver);

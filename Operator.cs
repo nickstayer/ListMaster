@@ -71,6 +71,9 @@ namespace ListMaster
                     case Consts.SCRIPT_GISMU_RP_DOC_STATUS:
                         return new gismu.russianPassport.docStatus.Operator(enviroment, settings);
 
+                    case Consts.SCRIPT_GISMU_RP_ACTUAL_DOC:
+                        return new gismu.russianPassport.actualDoc.Operator(enviroment, settings);
+
                     case Consts.SCRIPT_GISMU_RP_FORM_ONE:
                         return new gismu.russianPassport.formONe.Operator(enviroment, settings);
 
