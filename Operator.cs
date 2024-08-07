@@ -46,7 +46,7 @@ namespace ListMaster
 
         public void RestartBrowser()
         {
-            browser?.Stop();
+            browser?.Quit();
             browser = new Browser(settings);
             browser.Init();
             browser.DeleteAllCookies();

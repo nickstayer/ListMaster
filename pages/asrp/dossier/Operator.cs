@@ -65,6 +65,9 @@ namespace ListMaster.asrp.dossier
                     GetSearchPage();
                 }
             }
+            browser?.Quit();
+            excelApp.SaveBook();
+            excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

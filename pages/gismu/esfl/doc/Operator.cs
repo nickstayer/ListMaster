@@ -114,9 +114,10 @@ namespace ListMaster.gismu.esfl.doc
                 }
                 exCounter = 0;
             }
-            Report(Consts.MESSAGE_WORK_FINISHED);
-            browser?.Stop();
+            browser?.Quit();
             excelApp.SaveBook();
+            excelApp.Quit();
+            Report(Consts.MESSAGE_WORK_FINISHED);
         }
 
         public Dossier GetDossier(Dossier dossier)

@@ -84,9 +84,10 @@ namespace ListMaster.gismu.russianPassport.formONe
                 }
                 exCounter = 0;
             }
-            Report(Consts.MESSAGE_WORK_FINISHED);
-            browser?.Stop();
+            browser?.Quit();
             excelApp.SaveBook();
+            excelApp.Quit();
+            Report(Consts.MESSAGE_WORK_FINISHED);
         }
 
         public string HasFormOne(Dossier person)

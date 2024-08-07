@@ -3,9 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 using System.Threading;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Firefox;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 
 namespace ListMaster
@@ -38,8 +36,9 @@ namespace ListMaster
                 driverService.HideCommandPromptWindow = true;
                 var options = new ChromeOptions();
 
-                // для теста headless
-                //options.AddArguments("headless");
+                options.AddArguments("incognito");
+                // видимость
+                options.AddArguments("headless");
 
                 Driver = new ChromeDriver(driverService, options);
                 RunningDriversPIDs.Add(driverService.ProcessId);
@@ -54,6 +53,9 @@ namespace ListMaster
             else if (_settings.BrowserType == BrowserType.firefox)
             {
                 var options = new FirefoxOptions();
+                options.AddArguments("incognito");
+                // видимость
+                options.AddArguments("headless");
                 options.BrowserExecutableLocation = Consts.PATH_FIREFOX_EXE;
                 var driverService = FirefoxDriverService.CreateDefaultService();
                 driverService.HideCommandPromptWindow = true;
@@ -272,7 +274,7 @@ namespace ListMaster
             return result;
         }
 
-        public void Stop()
+        public void Quit()
         {
             Driver?.Quit();
             foreach (int pid in RunningDriversPIDs)

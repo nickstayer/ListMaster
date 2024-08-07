@@ -22,6 +22,11 @@ namespace ListMaster.gismu.russianPassport
         private readonly By _resultTableRows = By.CssSelector("tbody.ant-table-tbody tr");
         private readonly By _resultTableColumns = By.CssSelector("tbody.ant-table-tbody tr td");// 6
         private readonly By _column = By.CssSelector("td");
+        private readonly By _lastNameInput = By.Id("A_lastName");
+        private readonly By _firstNameInput = By.Id("A_firstName");
+        private readonly By _middleNameInput = By.Id("A_middleName");
+        private readonly By _bDateCalendar = By.CssSelector("#A_birthdayDt input");
+        private readonly By _bDateInput = By.CssSelector(".ant-calendar-picker-container input");
 
         public SearchPage(Browser browser)
         {
@@ -30,10 +35,28 @@ namespace ListMaster.gismu.russianPassport
 
         public void EnterData(Dossier person)
         {
-            var passField = _browser.FindAndClick(_passportSeriesInput);
-            passField.SendKeys(person.Documents.FirstOrDefault().Series);
-            var seriesField = _browser.FindAndClick(_passportNumberInput);
-            seriesField.SendKeys(person.Documents.FirstOrDefault().Number);
+            if (person.Documents.Count > 0)
+            {
+                var passField = _browser.FindAndClick(_passportSeriesInput);
+                passField.SendKeys(person.Documents.FirstOrDefault().Series);
+                var seriesField = _browser.FindAndClick(_passportNumberInput);
+                seriesField.SendKeys(person.Documents.FirstOrDefault().Number); 
+            }
+            else
+            {
+                var lastNameField = _browser.FindAndClick(_lastNameInput);
+                lastNameField.SendKeys(person.Lastname);
+                var firstNameField = _browser.FindAndClick(_firstNameInput);
+                firstNameField.SendKeys(person.Firstname);
+                if (!string.IsNullOrEmpty(person.Othername))
+                {
+                    var middleNameField = _browser.FindAndClick(_middleNameInput);
+                    middleNameField.SendKeys(person.Othername);
+                }
+                _browser.FindAndClick(_bDateCalendar);
+                var bDateField = _browser.FindAndClick(_bDateInput);
+                bDateField.SendKeys(person.Bdate.ToShortDateString());
+            }
         }
 
         public void ClearForm()
@@ -49,16 +72,21 @@ namespace ListMaster.gismu.russianPassport
                 throw new Exception(Consts.ERROR_CANT_GET_SEARCH_RESULT_TABLE);
         }
 
-        public List<string> GetDocumentStatus()
+        public List<Document> GetDocuments()
         {
-            var result = new List<string>();
+            var result = new List<Document>();
             IList<IWebElement> rows = GetResultRows();
             foreach (IWebElement row in rows)
             {
+                var document = new Document();
                 var columns = row.FindElements(_column);
-                if (columns.Count == 6)//магическое
+                if (columns.Count == 6)// количество колонок в таблице выдачи
                 {
-                    result.Add(columns[5].Text); 
+                    document.Series = columns[2].Text;
+                    document.Number = columns[3].Text;
+                    document.Date = columns[4].Text;
+                    document.Status = columns[5].Text;
+                    result.Add(document);
                 } 
             }
             return result;

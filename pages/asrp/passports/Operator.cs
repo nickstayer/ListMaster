@@ -43,6 +43,9 @@ namespace ListMaster.asrp.passports
                     GetSearchPage();
                 }
             }
+            browser?.Quit();
+            excelApp.SaveBook();
+            excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

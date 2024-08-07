@@ -70,8 +70,10 @@ namespace ListMaster.ppo.dossier.reg
                     continue;
                 }
             }
+            browser?.Quit();
+            excelApp.SaveBook();
+            excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
-            browser?.Stop();
         }
 
         private SearchPage GetSearchPage()
@@ -138,7 +140,7 @@ namespace ListMaster.ppo.dossier.reg
 
         private void RestartBrowser()
         {
-            browser?.Stop();
+            browser?.Quit();
             browser = new Browser(settings);
             browser.Init();
         }

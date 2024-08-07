@@ -54,9 +54,8 @@ namespace ListMaster
                 if (_file != null)
                 {
                     OutputFileNameToForm(_file);
-                    _excelApp = new ExcelApp(true);
+                    _excelApp = new ExcelApp(false); // видимость
                     _excelApp.OpenDoc(_file);
-                    //_excelApp.SetExcelWindowHalfScreenRight();
                 }
             }
             catch(Exception ex)
@@ -67,7 +66,7 @@ namespace ListMaster
 
         private void SetStatus(string status)
         {
-            if (textBoxStatus.TextLength + status.Length > textBoxStatus.MaxLength)
+            if (textBoxStatus.TextLength + status?.Length > textBoxStatus.MaxLength)
             {
                 textBoxStatus.Clear();
             }

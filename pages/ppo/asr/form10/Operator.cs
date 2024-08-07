@@ -65,8 +65,10 @@ namespace ListMaster.ppo.asr.form10
                     continue;
                 }
             }
+            browser?.Quit();
+            excelApp.SaveBook();
+            excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
-            browser?.Stop();
         }
 
         private SearchPage GetSearchPage()
@@ -121,7 +123,7 @@ namespace ListMaster.ppo.asr.form10
 
         private void RestartBrowser()
         {
-            browser?.Stop();
+            browser?.Quit();
             browser = new Browser(settings);
             browser.Init();
         }

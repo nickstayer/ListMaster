@@ -116,9 +116,10 @@ namespace ListMaster.ppo.dossier.doc
                 }
                 exCounter = 0;
             }
-            Report(Consts.MESSAGE_WORK_FINISHED);
-            browser?.Stop();
+            browser?.Quit();
             excelApp.SaveBook();
+            excelApp.Quit();
+            Report(Consts.MESSAGE_WORK_FINISHED);
         }
 
         public List<Document> GetDocuments(Dossier person)
