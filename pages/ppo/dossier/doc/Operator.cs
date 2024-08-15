@@ -118,7 +118,7 @@ namespace ListMaster.ppo.dossier.doc
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

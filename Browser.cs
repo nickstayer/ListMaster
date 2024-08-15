@@ -36,9 +36,11 @@ namespace ListMaster
                 driverService.HideCommandPromptWindow = true;
                 var options = new ChromeOptions();
 
-                options.AddArguments("incognito");
+                options.AddArguments("--incognito");
+                options.AddArguments("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36");
+                options.AddArguments("--disable-blink-features=AutomationControlled");
                 // видимость
-                options.AddArguments("headless");
+                //options.AddArguments("--headless");
 
                 Driver = new ChromeDriver(driverService, options);
                 RunningDriversPIDs.Add(driverService.ProcessId);

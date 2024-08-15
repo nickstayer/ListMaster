@@ -104,7 +104,7 @@ namespace ListMaster.gismu.esfl.nationBirthPlace
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

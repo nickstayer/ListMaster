@@ -86,7 +86,7 @@ namespace ListMaster.gismu.russianPassport.formONe
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

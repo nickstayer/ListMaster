@@ -67,7 +67,7 @@ namespace ListMaster.ppo.asr.form10
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

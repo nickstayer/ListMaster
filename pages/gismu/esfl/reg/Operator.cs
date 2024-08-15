@@ -107,7 +107,7 @@ namespace ListMaster.gismu.esfl.reg
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

@@ -72,7 +72,7 @@ namespace ListMaster.ppo.dossier.reg
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

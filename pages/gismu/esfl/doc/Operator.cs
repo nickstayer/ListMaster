@@ -116,7 +116,7 @@ namespace ListMaster.gismu.esfl.doc
             }
             browser?.Quit();
             excelApp.SaveBook();
-            excelApp.Quit();
+            //excelApp.Quit();
             Report(Consts.MESSAGE_WORK_FINISHED);
         }
 

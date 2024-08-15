@@ -54,7 +54,7 @@ namespace ListMaster
                 if (_file != null)
                 {
                     OutputFileNameToForm(_file);
-                    _excelApp = new ExcelApp(false); // видимость
+                    _excelApp = new ExcelApp(true); // видимость
                     _excelApp.OpenDoc(_file);
                 }
             }
