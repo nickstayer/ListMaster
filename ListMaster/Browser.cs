@@ -26,6 +26,7 @@ namespace ListMaster
             GoTo();
         }
 
+        [Obsolete]
         private void Start()
         {
             // *новый браузер*
