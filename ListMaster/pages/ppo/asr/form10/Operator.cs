@@ -121,11 +121,11 @@ namespace ListMaster.ppo.asr.form10
             throw new Exception(Consts.ERROR_NO_CONNECTION);
         }
 
-        private void RestartBrowser()
-        {
-            browser?.Quit();
-            browser = new Browser(settings);
-            browser.Init();
-        }
+        //private void RestartBrowser()
+        //{
+        //    browser?.Quit();
+        //    browser = new Browser(settings);
+        //    browser.Init();
+        //}
     }
 }

@@ -34,12 +34,20 @@ namespace ListMaster
 
         private static void UpdateCache(string file)
         {
-            var settings = Settings.DeserializeSettings(file);
-            if (!Consts.CacheDict.ContainsKey(file) 
-                && !Consts.CacheDict.ContainsKey(settings.ScriptName))
+            Settings? settings;
+            try
             {
-                Consts.CacheDict.Add(file, settings.ScriptName);
-                Consts.CacheDict.Add(settings.ScriptName, file);
+                settings = Settings.DeserializeSettings(file);
+                if (!Consts.CacheDict.ContainsKey(file)
+                    && !Consts.CacheDict.ContainsKey(settings.ScriptName))
+                {
+                    Consts.CacheDict.Add(file, settings.ScriptName);
+                    Consts.CacheDict.Add(settings.ScriptName, file);
+                }
+            }
+            catch
+            {
+
             }
         }
 
